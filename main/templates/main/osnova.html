@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	{% load static %}
+    <link rel="stylesheet" href="{% static 'main/css/osnova.css' %}">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<title></title>
+</head>
+<body>
+	<article>
+		<div class="container-fluid">
+			<div class="row">
+            <div class="col-md-8">
+                <!-- Прямоугольник слева, ширина 8/12 -->
+                <div class="row">
+                    <div class="col-md-6" id="block1">
+                    	<div class="textvod">
+                             <ul>
+                                {% for message in messages %}
+                                 <li {% if message.is_my_computer %}class="my-message"{% endif %}>
+                                     <span class="usernamepython">{{ message.username }}</span>
+                                     <span class="textpython">: {{ message.text }}</span></li>
+                                {% endfor %}
+                            </ul>
+                    	</div>
+                    </div>
+                    <div class="col-md-6" id="block2">
+                    	<h1>Help smile!</h1>
+                    		<form method="post" action="{% url 'save_message' %}">
+                                {% csrf_token %}
+        <label for="username"></label>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required>
+        <br><br>
+        <label for="text"></label>
+        <textarea id="text" name="text" placeholder="Enter your message" rows="5" required></textarea>
+        <br><br>
+        <input type="submit" value="SUBMIT" id="submit">
+    						</form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4"  id="block3">
+                {% if message_count < 30 %}
+                <h1>Набираем 30 комментариев и Кищик улыбнется!</h1>
+                <h5>уже собранно: {{message_count}} коммент. </h5>
+                <img src="{% static 'main/img/p1.png' %}" class="bobik">
+                {% else %}
+                <h1>Мы собрали 30 комментариев Кищик улыбаеться!</h1>
+                <img src="{% static 'main/img/p2.png' %}" class="bobik">
+                {% endif %}
+                <div >
+
+                </div>
+            </div>
+        	</div>
+		</div>
+	</article>
+
+</body>
+</html>
